@@ -4,7 +4,7 @@
     </div>
     <div class="dashboard__content dashboard-content">
       <div class="dashboard-content__grid">
-        <div class="dashboard-content__cell dashboard-content-cell">
+        <div *ngFor="let task of tasks | async" class="dashboard-content__cell dashboard-content-cell">
           <div class="dashboard-content-cell__header-wrapper">
             <div class="dashboard-content-cell__header">
               <span class="dashboard-content-cell__title">Task #1</span>
@@ -13,17 +13,6 @@
             <mat-checkbox></mat-checkbox>
           </div>
         </div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
-        <div>2</div>
       </div>
     </div>
   </div>
