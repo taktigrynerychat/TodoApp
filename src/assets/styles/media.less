@@ -1,0 +1,23 @@
+/* Media query */
+
+// Mobile
+@mobile-min-width: @page-min-width;
+@mobile-max-width: (@tablet-min-width - 1);
+@mobile: ~"screen and (max-width: @{mobile-max-width})";
+@mobile-portrait: ~"@{mobile} and (orientation: portrait)";
+@mobile-landscape: ~"@{mobile} and (orientation: landscape)";
+@mobile-s-portrait: ~"only screen and (min-device-width: @{mobile-min-width}) and (max-device-width: 480px) and (orientation: portrait)";
+@not-mobile: ~"screen and (min-width: @{tablet-min-width})";
+
+// Tablet
+@tablet-min-width: 768px;
+@tablet-max-width: (@desktop-min-width - 1);
+@tablet: ~"screen and (min-width: @{tablet-min-width}) and (max-width: @{tablet-max-width})";
+@tablet-portrait: ~"@{tablet} and (orientation: portrait)";
+@tablet-landscape: ~"@{tablet} and (orientation: landscape)";
+
+// Desktop
+@desktop-min-width: 1100px;
+@desktop-max-width: @page-max-width;
+@desktop: ~"screen and (min-width: @{desktop-min-width})";
+@not-desktop: ~"screen and (max-width: @{tablet-max-width})";
