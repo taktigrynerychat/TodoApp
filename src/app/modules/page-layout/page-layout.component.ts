@@ -7,6 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageLayoutComponent implements OnInit {
 
+  headerData = [
+    {
+      text: 'send',
+      url: '/main'
+    },
+    {
+      text: 'open map',
+      url: '/'
+    },
+    {
+      text: 'profile',
+      url: '/'
+    },
+    {
+      text: 'contacts',
+      url: '/'
+    },
+    {
+      text: 'about',
+      url: '/'
+    }
+  ];
   constructor() { }
 
   ngOnInit(): void {

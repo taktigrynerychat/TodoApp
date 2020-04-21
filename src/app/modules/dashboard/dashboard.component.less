@@ -1,0 +1,54 @@
+@import "../../../assets/styles/base.less";
+
+.dashboard {
+  display: flex;
+  flex-basis: 100%;
+
+  &__sidebar {
+    display: flex;
+    flex: 0 1 30%;
+    align-self: stretch;
+    flex-direction: column;
+    //background: red;
+    box-shadow: 0px 5px 15px #E8E8E8;
+  }
+
+  &__content {
+    display: flex;
+    flex: 0 1 100%;
+    //background: yellow;
+  }
+
+  &-content {
+    &__grid {
+      padding: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      display: grid;
+      width: 100%;
+      grid-auto-rows: 180px;
+      grid-gap: 15px;
+
+    }
+
+    &__cell {
+      box-shadow: @card-shadow;
+      padding: 15px;
+    }
+
+    &-cell {
+      &__header-wrapper {
+        display: flex;
+
+        mat-checkbox {
+          margin-left: auto;
+        }
+      }
+
+      &__header {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+}
