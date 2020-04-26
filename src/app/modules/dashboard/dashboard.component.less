@@ -31,6 +31,23 @@
 
     }
 
+    &__add {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-add {
+      &__icon {
+        fill: #EFEFEF;
+        cursor: pointer;
+
+        &:hover {
+          fill: darken(#EFEFEF, 5);
+        }
+      }
+    }
+
     &__cell {
       box-shadow: @card-shadow;
       padding: 15px;
@@ -40,6 +57,7 @@
       &__header-wrapper {
         display: flex;
         border-bottom: 1px solid darken(@white, 10);
+        padding-bottom: 5px;
 
         mat-checkbox {
           margin-left: auto;
@@ -49,6 +67,18 @@
       &__header {
         display: flex;
         flex-direction: column;
+      }
+
+      &__title {
+        color: @primary;
+        font-size: 1.2em;
+        text-transform: capitalize;
+        font-weight: 500;
+      }
+
+      &__date {
+        color: @grey-text;
+        font-size: 0.8em;
       }
     }
   }
