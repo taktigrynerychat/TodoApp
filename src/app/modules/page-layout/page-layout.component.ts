@@ -9,20 +9,20 @@ export class PageLayoutComponent implements OnInit {
 
   headerData = [
     {
-      text: 'send',
-      url: '/main'
+      text: 'dashboard',
+      url: '/dashboard'
     },
     {
-      text: 'open map',
-      url: '/'
+      text: 'history',
+      url: '/history'
     },
     {
-      text: 'profile',
-      url: '/'
+      text: 'auth',
+      url: '/auth'
     },
     {
-      text: 'contacts',
-      url: '/'
+      text: 'sign in',
+      url: '/auth/sign-in'
     },
     {
       text: 'about',
