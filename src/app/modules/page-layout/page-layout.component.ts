@@ -1,32 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-page-layout',
   templateUrl: './page-layout.component.html',
-  styleUrls: ['./page-layout.component.less']
+  styleUrls: ['./page-layout.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageLayoutComponent implements OnInit {
 
   headerData = [
     {
-      text: 'send',
-      url: '/main'
+      text: 'dashboard',
+      url: '/dashboard'
     },
     {
-      text: 'open map',
-      url: '/'
-    },
-    {
-      text: 'profile',
-      url: '/'
-    },
-    {
-      text: 'contacts',
-      url: '/'
-    },
-    {
-      text: 'about',
-      url: '/'
+      text: 'history',
+      url: '/history'
     }
   ];
   constructor() { }

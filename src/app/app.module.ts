@@ -9,6 +9,7 @@ import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { environment } from '../environments/environment';
+import {HistoryModule} from './modules/history/history.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     AppRoutingModule,
     DashboardModule,
+    HistoryModule,
     environment.production ? [] : AkitaNgDevtools,
     AkitaNgRouterStoreModule
   ],
