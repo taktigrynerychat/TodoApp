@@ -1,6 +1,6 @@
 <div class="sign-in-form">
-  login
   <form [formGroup]="form" (ngSubmit)="formAction()">
+    <span class = 'sign-in-form__title'>{{type === 'sign-up' ? 'sign up' : 'sing in'}}</span>
     <mat-form-field *ngIf="type === 'sign-up'">
       <input formControlName="name" matInput placeholder="name">
     </mat-form-field>
