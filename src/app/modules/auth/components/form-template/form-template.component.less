@@ -1,0 +1,42 @@
+@import "../../../../../assets/styles/base.less";
+
+.sign-in-form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1 0 100%;
+  height: 100%;
+  background: @light;
+
+  form{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background: @white;
+    min-width: 300px;
+  }
+  .submit{
+    margin-bottom: 5px;
+  }
+  button.mat-primary{
+    background: @primary;
+  }
+}
+
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}

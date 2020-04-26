@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {UserCredentialsModel} from '../../../../models/user.model';
+import {UserService} from '../../../../services/user.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -6,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sign-in.component.less']
 })
 export class SignInComponent implements OnInit {
+  public signInFormGroup: FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService) {
+  }
 
   ngOnInit(): void {
+    this.signInFormGroup = this.formBuilder.group({
+      login: null,
+      password: null
+    });
+  }
+
+  signIn(creds: UserCredentialsModel) {
+    this.userService.singIn(creds).subscribe();
   }
 
 }

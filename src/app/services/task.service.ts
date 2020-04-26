@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/internal/Observable';
-import {TaskModel} from "../models/task.model";
+import {TaskModel} from '../models/task.model';
+import {url} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,6 @@ export class TaskService {
   }
 
   getAllTasks(): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>('http://localhost:8080/getAllTasks');
+    return this.http.get<TaskModel[]>(`${url.API}/getAllTasks`);
   }
 }

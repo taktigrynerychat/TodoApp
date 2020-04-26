@@ -1,0 +1,20 @@
+<div class="sign-in-form">
+  login
+  <form [formGroup]="form" (ngSubmit)="formAction()">
+    <mat-form-field *ngIf="type === 'sign-up'">
+      <input formControlName="name" matInput placeholder="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="login" matInput placeholder="login">
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" placeholder="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button class = 'submit' mat-raised-button color="primary">{{type === 'sign-up' ? 'sign up' : 'sing in'}}</button>
+    <a mat-button [routerLink] = "type !== 'sign-up' ? '../sign-up' : '../sign-in'">
+      {{type !== 'sign-up' ? 'sign up' : 'sing in'}}</a>
+  </form>
+</div>
