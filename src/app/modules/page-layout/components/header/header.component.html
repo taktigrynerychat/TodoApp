@@ -1,7 +1,18 @@
 <div class="app-header">
   <div class="app-header__wrapper">
-    <div class="app-header__logo">
-      logo
+    <div class="app-header__logo-wrapper">
+      <span class="app-header__logo">TODO APP</span>
+      <div class="app-header__user app-header-user">
+        <span class="app-header-user__pic">
+          <span class="app-header-user__initials">{{picName}}</span>
+        </span>
+        <div class="app-header-user__info app-header-user-info">
+          <span class="app-header-user-info__name">{{user.name}}</span>
+          <span class="app-header-user-info__role"
+                [ngStyle]="{color: user?.role === 'admin' ? '#ffd740' : '#32c600'}">{{user.role}}</span>
+        </div>
+        <button mat-button (click)="signOut()">sign out</button>
+      </div>
     </div>
     <ul class="app-header__nav app-header-nav">
       <li *ngFor="let item of headerData"

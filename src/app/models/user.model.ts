@@ -6,6 +6,8 @@ export interface UserCredentialsModel {
 
 export interface UserInfoModel {
   id: number;
+  name: string;
+  login: string;
   role: string;
 }
 

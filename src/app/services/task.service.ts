@@ -13,6 +13,6 @@ export class TaskService {
   }
 
   getAllTasks(): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>(`${url.API}/getAllTasks`);
+    return this.http.get<TaskModel[]>(`${url.API}/getUserTasks?id=${localStorage.getItem('userId')}`);
   }
 }

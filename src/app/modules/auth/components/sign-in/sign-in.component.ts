@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserCredentialsModel} from '../../../../models/user.model';
 import {UserService} from '../../../../services/user.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -12,7 +13,8 @@ export class SignInComponent implements OnInit {
   public signInFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -23,7 +25,15 @@ export class SignInComponent implements OnInit {
   }
 
   signIn(creds: UserCredentialsModel) {
-    this.userService.singIn(creds).subscribe();
+    this.userService.singIn(creds).subscribe({
+      next: value => {
+        localStorage.setItem('user', JSON.stringify(value));
+        localStorage.setItem('userId', '' + value.id);
+      },
+      complete: () => {
+        this.router.navigate(['/dashboard']);
+      }
+    });
   }
 
 }
