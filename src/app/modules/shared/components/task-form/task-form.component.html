@@ -1,0 +1,25 @@
+<form class='task-form' [formGroup]="taskForm" (ngSubmit)="saveTask()">
+  <div *ngIf="!createMode" class="task-form__done task-form-done">
+    <span class="task-info-done__label">Done: </span>
+    <mat-checkbox formControlName="is_done"></mat-checkbox>
+  </div>
+  <mat-form-field>
+    <input matInput placeholder="name" formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea rows="3" matInput placeholder="description" formControlName="description"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="end_date" matInput [matDatepicker]="picker" placeholder="end date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="category_id" formControlName="category_id">
+  </mat-form-field>
+  <span class="task-form-done__new-category">new category</span>
+
+  <button class="task-form-done__save" [disabled]="taskForm.untouched" type="submit" mat-raised-button
+          color="primary">{{buttonText}}
+  </button>
+</form>

@@ -1,17 +1,22 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-task-info',
-  templateUrl: './task-info.component.html',
-  styleUrls: ['./task-info.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-task-form',
+  templateUrl: './task-form.component.html',
+  styleUrls: ['./task-form.component.less']
 })
-export class TaskInfoComponent implements OnInit, OnChanges {
+export class TaskFormComponent implements OnInit, OnChanges {
 
   @Input()
   task: TaskModel;
+
+  @Input()
+  buttonText = 'Save';
+
+  @Input()
+  createMode = false;
 
   taskForm: FormGroup;
 
@@ -19,10 +24,6 @@ export class TaskInfoComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-  }
-
-  log(e) {
-    console.log(e);
   }
 
   saveTask() {
@@ -39,7 +40,16 @@ export class TaskInfoComponent implements OnInit, OnChanges {
         end_date: this.task.end_date ? new Date(+this.task.end_date) : null,
         category_id: this.task.category_id
       });
+    } else if (this.createMode) {
+      this.taskForm = this.formBuilder.group({
+        user_id: localStorage.getItem('userId'),
+        name: null,
+        description: null,
+        end_date: null,
+        category_id: null
+      });
     }
   }
+
 
 }

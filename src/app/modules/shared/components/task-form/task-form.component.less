@@ -1,0 +1,42 @@
+@import "../../../../../assets/styles/base.less";
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+
+  &__done {
+    display: flex;
+    align-items: center;
+
+    mat-checkbox {
+      margin-left: 10px;
+    }
+
+    padding-bottom: 17.5px;
+  }
+
+  &-done {
+    &__label {
+      color: @grey-text;
+    }
+
+    &__new-category {
+      align-self: flex-end;
+      cursor: pointer;
+      color: @grey-text;
+      font-size: 0.8em;
+      text-decoration: underline;
+      margin-top: -17.5px;
+      z-index: 2;
+
+      &:hover {
+        color: #8a7aff;
+      }
+    }
+
+    &__save {
+      margin-top: 10px;
+    }
+  }
+}
+

@@ -3,29 +3,5 @@
     <span class="task-info-title__label">Selected task:</span>
     <span class="task-info-title__name">{{task.name}}</span>
   </div>
-  <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
-    <div class="task-info__done task-info-done">
-      <span class="task-info-done__label">Done: </span>
-      <mat-checkbox formControlName="is_done"></mat-checkbox>
-    </div>
-    <mat-form-field>
-      <input matInput placeholder="name" formControlName="name">
-    </mat-form-field>
-    <mat-form-field>
-      <textarea rows="3" matInput placeholder="description" formControlName="description"></textarea>
-    </mat-form-field>
-    <mat-form-field>
-      <input formControlName="end_date" matInput [matDatepicker]="picker" placeholder="end date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="category_id" formControlName="category_id">
-    </mat-form-field>
-    <span class="task-info-done__new-category">new category</span>
-
-    <button class="task-info-done__save" [disabled]="taskForm.untouched" type="submit" mat-raised-button
-            color="primary">Save changes
-    </button>
-  </form>
+  <app-task-form [task]="task" [buttonText]="'Save changes'"></app-task-form>
 </div>

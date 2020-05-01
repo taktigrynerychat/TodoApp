@@ -1,10 +1,3 @@
 <div class="create-task-dialog">
-  <form [formGroup]="createFormGroup" (ngSubmit)="submit(createFormGroup.value)">
-    <mat-form-field>
-      <input formControlName="name" matInput placeholder="Task name">
-    </mat-form-field>
-    <mat-form-field>
-      <textarea rows="5" formControlName="description" matInput placeholder="Desc"></textarea>
-    </mat-form-field>
-  </form>
+  <app-task-form [createMode]="true" [buttonText]="'Create task'"></app-task-form>
 </div>
