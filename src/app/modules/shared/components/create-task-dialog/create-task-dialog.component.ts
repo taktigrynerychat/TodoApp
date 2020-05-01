@@ -8,22 +8,10 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateTaskDialogComponent implements OnInit {
-  public createFormGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.createFormGroup = this.formBuilder.group({
-      user_id: null,
-      name: null,
-      description: null,
-      end_date: null,
-      category_id: null
-    });
-  }
-
-  submit(e) {
-    console.log(e);
   }
 }

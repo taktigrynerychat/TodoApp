@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {DashboardComponent} from './dashboard.component';
 import {PageLayoutModule} from '../page-layout/page-layout.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
-import {CreateTaskDialogComponent} from './components/create-task-dialog/create-task-dialog.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { TaskInfoComponent } from './components/task-info/task-info.component';
+import {TaskInfoComponent} from './components/task-info/task-info.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,7 +15,7 @@ import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [DashboardComponent, CreateTaskDialogComponent, TaskInfoComponent],
+  declarations: [DashboardComponent, TaskInfoComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -31,6 +30,7 @@ import {SharedModule} from '../shared/shared.module';
     MatButtonModule,
     SharedModule
   ],
-  providers: [MatDatepickerModule]
+  providers: [MatDatepickerModule],
 })
-export class DashboardModule { }
+export class DashboardModule {
+}

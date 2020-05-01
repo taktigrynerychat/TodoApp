@@ -1,0 +1,12 @@
+<form class='category-form' [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+  <mat-form-field>
+    <input matInput placeholder="name" formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="color" formControlName="color">
+  </mat-form-field>
+  <button class="category-form__save" [disabled]="categoryForm.untouched" type="submit" mat-raised-button
+          color="primary">{{buttonText}}
+  </button>
+</form>
+

@@ -14,10 +14,20 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="category_id" formControlName="category_id">-->
+  <!--</mat-form-field>-->
   <mat-form-field>
-    <input matInput placeholder="category_id" formControlName="category_id">
+    <mat-select formControlName="category_id">
+      <mat-option (click)="openCategoryPopup($event)">
+        <span>create new category</span>
+      </mat-option>
+      <mat-option [value]="cat.id" *ngFor="let cat of categories">
+        {{cat.name}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
-  <span class="task-form-done__new-category">new category</span>
+  <span class="task-form-done__new-category" (click)="openCategoryPopup($event)">new category</span>
 
   <button class="task-form-done__save" [disabled]="taskForm.untouched" type="submit" mat-raised-button
           color="primary">{{buttonText}}

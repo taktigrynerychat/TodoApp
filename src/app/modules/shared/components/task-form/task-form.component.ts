@@ -1,6 +1,8 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateCategoryDialogComponent} from '../create-category-dialog/create-category-dialog.component';
 
 @Component({
   selector: 'app-task-form',
@@ -20,7 +22,23 @@ export class TaskFormComponent implements OnInit, OnChanges {
 
   taskForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  categories = [
+    {
+      id: 1,
+      name: 'test_cat'
+    },
+    {
+      id: 2,
+      name: 'work'
+    },
+    {
+      id: 5,
+      name: 'home'
+    }
+  ];
+
+  constructor(private formBuilder: FormBuilder,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -28,6 +46,12 @@ export class TaskFormComponent implements OnInit, OnChanges {
 
   saveTask() {
     console.log(this.taskForm.value);
+  }
+
+  openCategoryPopup(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    this.dialog.open(CreateCategoryDialogComponent);
   }
 
   ngOnChanges(): void {
