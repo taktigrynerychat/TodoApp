@@ -17,13 +17,15 @@ export class DashboardComponent implements OnInit {
   }
 
   tasks: Observable<TaskModel[]>;
+  selectedTask: TaskModel;
 
   ngOnInit(): void {
     this.tasks = this.taskService.getAllTasks();
   }
 
-  log(a) {
-    console.log(a);
+  selectTask(task: TaskModel) {
+    this.selectedTask ? (this.selectedTask.id !== task.id ? this.selectedTask = task : this.selectedTask = null) : this.selectedTask = task;
+    console.log(this.selectedTask);
   }
 
   openPopup() {

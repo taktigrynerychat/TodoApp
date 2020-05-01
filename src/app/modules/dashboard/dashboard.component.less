@@ -8,6 +8,7 @@
   &__sidebar {
     display: flex;
     flex: 0 1 30%;
+    min-width: 300px;
     align-self: stretch;
     flex-direction: column;
     //background: red;
@@ -51,9 +52,25 @@
     &__cell {
       box-shadow: @card-shadow;
       padding: 15px;
+      border-bottom: 3px transparent;
+      transition: .2s;
+      cursor: pointer;
+
+      &._selected {
+        border-bottom: 3px solid @primary;
+      }
     }
 
     &-cell {
+      &__desc {
+        margin-top: 10px;
+        word-break: break-word;
+      }
+
+      &__desc-wrapper {
+        display: flex;
+      }
+
       &__header-wrapper {
         display: flex;
         border-bottom: 1px solid darken(@white, 10);

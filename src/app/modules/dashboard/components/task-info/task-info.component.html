@@ -1,0 +1,15 @@
+<div *ngIf="task" class="task-info">
+  <span class="task-info__title">Selected task [#{{task.id}}]:</span>
+  <span>{{task | json}}</span>
+  <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
+    <mat-form-field>
+      <input formControlName="end_date" matInput [matDatepicker]="picker" placeholder="end date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="id" formControlName="id">
+    </mat-form-field>
+    <button [disabled]="taskForm.untouched" type="submit" mat-raised-button color="primary">Primary</button>
+  </form>
+</div>
