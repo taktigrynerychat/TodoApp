@@ -1,13 +1,17 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateCategoryDialogComponent} from '../create-category-dialog/create-category-dialog.component';
+import {CategoryService} from '../../../../services/category.service';
+import {Observable} from 'rxjs/internal/Observable';
+import {CategoryModel} from '../../../../models/category.model';
 
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
-  styleUrls: ['./task-form.component.less']
+  styleUrls: ['./task-form.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskFormComponent implements OnInit, OnChanges {
 
@@ -22,26 +26,15 @@ export class TaskFormComponent implements OnInit, OnChanges {
 
   taskForm: FormGroup;
 
-  categories = [
-    {
-      id: 1,
-      name: 'test_cat'
-    },
-    {
-      id: 2,
-      name: 'work'
-    },
-    {
-      id: 5,
-      name: 'home'
-    }
-  ];
+  categories: Observable<CategoryModel[]>;
 
   constructor(private formBuilder: FormBuilder,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
+    this.categories = this.categoryService.getUserCategories();
   }
 
   saveTask() {

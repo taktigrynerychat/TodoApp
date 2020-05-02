@@ -1,6 +1,6 @@
 <form class='task-form' [formGroup]="taskForm" (ngSubmit)="saveTask()">
   <div *ngIf="!createMode" class="task-form__done task-form-done">
-    <span class="task-info-done__label">Done: </span>
+    <span class="task-form-done__label">Done: </span>
     <mat-checkbox formControlName="is_done"></mat-checkbox>
   </div>
   <mat-form-field>
@@ -15,15 +15,18 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <!--<mat-form-field>-->
-    <!--<input matInput placeholder="category_id" formControlName="category_id">-->
+  <!--<input matInput placeholder="category_id" formControlName="category_id">-->
   <!--</mat-form-field>-->
   <mat-form-field>
-    <mat-select formControlName="category_id">
+    <mat-select formControlName="category_id" placeholder="category">
       <mat-option (click)="openCategoryPopup($event)">
         <span>create new category</span>
       </mat-option>
-      <mat-option [value]="cat.id" *ngFor="let cat of categories">
-        {{cat.name}}
+      <mat-option [value]="cat.id" *ngFor="let cat of categories | async">
+        <div class="task-form__category task-form-category">
+          <div class="task-form-category__color" [ngStyle]="{background: cat.color ? cat.color : '#ccc'}"></div>
+          <span class="task-form-category__name">{{cat.name}}</span>
+        </div>
       </mat-option>
     </mat-select>
   </mat-form-field>
