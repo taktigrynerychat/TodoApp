@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {CategoryModel} from '../../../../models/category.model';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-category-form',
@@ -18,6 +18,9 @@ export class CategoryFormComponent implements OnInit {
   @Input()
   buttonText = 'Save';
 
+  @ViewChild('colorBlock', {static: false})
+  colorBlock: ElementRef<any>;
+
   categoryForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -34,7 +37,7 @@ export class CategoryFormComponent implements OnInit {
       this.categoryForm = this.fb.group({
         user_id: localStorage.getItem('userId'),
         name: null,
-        color: null
+        color: [null, Validators.pattern(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i)]
       });
     }
   }

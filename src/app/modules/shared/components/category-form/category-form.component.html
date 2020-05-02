@@ -3,9 +3,10 @@
     <input matInput placeholder="name" formControlName="name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="color" formControlName="color">
+    <input matInput placeholder="color (hex)" formControlName="color">
+    <div #colorBlock class="category-form__selected-color" [ngStyle]="{background: categoryForm.valid ? categoryForm.value.color : 'none'}"></div>
   </mat-form-field>
-  <button class="category-form__save" [disabled]="categoryForm.untouched" type="submit" mat-raised-button
+  <button class="category-form__save" [disabled]="categoryForm.untouched || !categoryForm.valid" type="submit" mat-raised-button
           color="primary">{{buttonText}}
   </button>
 </form>
