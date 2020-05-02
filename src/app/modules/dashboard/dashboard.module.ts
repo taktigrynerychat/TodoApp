@@ -12,10 +12,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import {SharedModule} from '../shared/shared.module';
+import { TaskCommentsComponent } from './components/task-comments/task-comments.component';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
-  declarations: [DashboardComponent, TaskInfoComponent],
+  declarations: [DashboardComponent, TaskInfoComponent, TaskCommentsComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -28,7 +30,8 @@ import {SharedModule} from '../shared/shared.module';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    SharedModule
+    SharedModule,
+    MatIconModule
   ],
   providers: [MatDatepickerModule],
 })
