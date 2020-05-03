@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {CategoryModel} from '../../../../models/category.model';
 
 @Component({
   selector: 'app-create-category-dialog',
@@ -8,9 +9,14 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 })
 export class CreateCategoryDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  saveCategory(e: CategoryModel) {
+    console.log(e);
   }
 
 }

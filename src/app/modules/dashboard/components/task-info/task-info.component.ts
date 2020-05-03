@@ -21,12 +21,8 @@ export class TaskInfoComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  log(e) {
+  saveTask(e: TaskModel) {
     console.log(e);
-  }
-
-  saveTask() {
-    console.log(this.taskForm.value);
   }
 
   ngOnChanges(): void {

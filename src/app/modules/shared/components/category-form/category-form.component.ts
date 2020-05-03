@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {CategoryModel} from '../../../../models/category.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -18,6 +27,9 @@ export class CategoryFormComponent implements OnInit {
 
   @Input()
   buttonText = 'Save';
+
+  @Output()
+  formSubmit: EventEmitter<CategoryModel> = new EventEmitter<CategoryModel>();
 
   @ViewChild('colorBlock', {static: false})
   colorBlock: ElementRef<any>;
@@ -44,6 +56,6 @@ export class CategoryFormComponent implements OnInit {
   }
 
   saveCategory() {
-    console.log(this.categoryForm.value);
+    this.formSubmit.emit(this.categoryForm.value);
   }
 }
