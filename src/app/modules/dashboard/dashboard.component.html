@@ -1,24 +1,34 @@
 <app-page-layout>
   <div content class="dashboard">
     <div class="dashboard__sidebar">
+      <app-task-info [task]="selectedTask"></app-task-info>
     </div>
     <div class="dashboard__content dashboard-content">
       <div class="dashboard-content__grid">
         <div class="dashboard-content__add dashboard-content-add">
-          <svg (click) = "openPopup()" class = "dashboard-content-add__icon" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg (click)="openPopup()" class="dashboard-content-add__icon" width="60" height="60" viewBox="0 0 60 60"
+               fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="30" cy="30" r="30"></circle>
-            <path d="M31.9835 28.3684H41.6691V32.5432H31.9835V43.517H27.5463V32.5432H17.8608V28.3684H27.5463V18.2296H31.9835V28.3684Z" fill="white"></path>
+            <path
+              d="M31.9835 28.3684H41.6691V32.5432H31.9835V43.517H27.5463V32.5432H17.8608V28.3684H27.5463V18.2296H31.9835V28.3684Z"
+              fill="white"></path>
           </svg>
         </div>
-        <div *ngFor="let task of tasks | async" class="dashboard-content__cell dashboard-content-cell"
-             (click)="log(task)">
+        <div *ngFor="let task of (tasks | async) " class="dashboard-content__cell dashboard-content-cell"
+             (click)="selectTask(task)"
+             [ngClass]="{'_selected' : task == selectedTask}">
           <div class="dashboard-content-cell__header-wrapper">
             <div class="dashboard-content-cell__header">
               <span class="dashboard-content-cell__title">{{task.name}}</span>
               <span
-                class="dashboard-content-cell__date">{{task.end_date ? 'deadline:  ' + (task.end_date | date) : '~'}}</span>
+                class="dashboard-content-cell__date">deadline: {{task.end_date ? (task.end_date | date) : '~'}}</span>
             </div>
-            <mat-checkbox [checked]="task.is_done"></mat-checkbox>
+            <mat-checkbox (click)="$event.stopPropagation()" [checked]="task.is_done"></mat-checkbox>
+          </div>
+          <div class="dashboard-content-cell__desc-wrapper">
+             <span class="dashboard-content-cell__desc">
+            {{task.description | desc: 88}}
+          </span>
           </div>
         </div>
       </div>

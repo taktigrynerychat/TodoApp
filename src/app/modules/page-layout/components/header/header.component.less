@@ -11,8 +11,67 @@
   top: 0;
   transition: 0.3s;
 
-  &__logo {
+  &__logo-wrapper {
+    display: flex;
+    align-items: center;
+  }
 
+  &__logo {
+    margin-left: 30px;
+    font-size: 25px;
+    font-weight: 500;
+    text-shadow: 2px 2px 2px #002a5c;
+  }
+
+  &__user {
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+  }
+
+  &-user {
+
+    &__pic {
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background: lighten(@violet, 10);
+    }
+
+    &__initials {
+      font-weight: 500;
+      font-size: 1.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5px;
+      position: relative;
+    }
+
+    &-info {
+      &__name {
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+
+      &__role {
+        position: absolute;
+        top: 13px;
+        font-size: 0.9em;
+      }
+    }
+    button{
+      margin-left: 15px;
+    }
   }
 
   &__icon-wrapper {
@@ -33,7 +92,6 @@
 
   &__nav {
     display: flex;
-    flex-direction: row;
 
     @media @mobile {
       position: fixed;
@@ -76,9 +134,10 @@
 
     &-item {
       &__text {
-        &:hover{
-          color: yellow;
+        &:hover {
+          color: @yellow;
         }
+
         @media @mobile {
           color: #000;
         }

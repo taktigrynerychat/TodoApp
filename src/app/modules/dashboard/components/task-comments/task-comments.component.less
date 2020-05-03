@@ -1,0 +1,50 @@
+@import "../../../../../assets/styles/base.less";
+
+.task-comments {
+  display: flex;
+  flex-direction: column;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    margin: 15px 0;
+    font-size: 1.4em;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    box-shadow: @card-shadow;
+    padding: 15px;
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+
+  &-item {
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__login {
+      color: @primary;
+      font-weight: 500;
+    }
+
+    &__date {
+      color: @grey-text;
+      margin-left: 10px;
+      font-size: 0.8em;
+    }
+
+    &__text {
+
+    }
+  }
+}
