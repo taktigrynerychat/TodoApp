@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
 import {CommentModel} from '../../../../models/comment.model';
 import {Observable} from 'rxjs/internal/Observable';
 import {CommentService} from '../../../../services/comment.service';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-task-comments',
@@ -33,8 +33,7 @@ export class TaskCommentsComponent implements OnInit, OnChanges {
     this.userLogin = JSON.parse(localStorage.getItem('user')).login;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+  ngOnChanges(): void {
     if (this.task) {
       this.comments = this.commentService.getTaskComments(this.task.id);
       this.commentForm = this.fb.group({

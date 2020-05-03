@@ -1,0 +1,23 @@
+<div class="task-card"
+     (click)="selectTask()"
+     [ngClass]="{'_selected' : isSelected}">
+  <div class="task-card__header-wrapper">
+    <div class="task-card__header">
+      <span class="task-card__title">{{task.name}}</span>
+      <span
+        class="task-card__date">deadline: {{task.end_date ? (task.end_date | date) : '~'}}</span>
+    </div>
+    <mat-checkbox (click)="$event.stopPropagation()" [checked]="task.is_done"></mat-checkbox>
+  </div>
+  <div class="task-card__desc-wrapper">
+             <span class="task-card__desc">
+            {{task.description | desc: 88}}
+          </span>
+  </div>
+  <div class="task-card__category task-card-category">
+    <div *ngIf="task.category_id"
+         [ngStyle]="{background: task.color}"
+         class="task-card-category__color">{{task.category | slice:0:1}}</div>
+    <mat-icon>delete</mat-icon>
+  </div>
+</div>

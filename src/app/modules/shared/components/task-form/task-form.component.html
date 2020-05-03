@@ -14,9 +14,6 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  <!--<mat-form-field>-->
-  <!--<input matInput placeholder="category_id" formControlName="category_id">-->
-  <!--</mat-form-field>-->
   <mat-form-field>
     <mat-select formControlName="category_id" placeholder="category">
       <mat-option (click)="openCategoryPopup($event)">
@@ -29,6 +26,7 @@
         </div>
       </mat-option>
     </mat-select>
+    <div class="task-form__category-color" *ngIf="taskForm.untouched" [ngStyle]="{background: task?.color}"></div>
   </mat-form-field>
   <span class="task-form-done__new-category" (click)="openCategoryPopup($event)">new category</span>
 

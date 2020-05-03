@@ -14,10 +14,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {SharedModule} from '../shared/shared.module';
 import { TaskCommentsComponent } from './components/task-comments/task-comments.component';
 import {MatIconModule} from '@angular/material/icon';
+import { TaskCardComponent } from './components/task-card/task-card.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, TaskInfoComponent, TaskCommentsComponent],
+  declarations: [DashboardComponent, TaskInfoComponent, TaskCommentsComponent, TaskCardComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
