@@ -56,6 +56,7 @@ export class CategoryFormComponent implements OnInit {
   }
 
   saveCategory() {
+    console.log('lol', this.categoryForm.value);
     this.formSubmit.emit(this.categoryForm.value);
   }
 }

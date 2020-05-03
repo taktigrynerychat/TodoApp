@@ -6,6 +6,7 @@ import {CreateCategoryDialogComponent} from '../create-category-dialog/create-ca
 import {CategoryService} from '../../../../services/category.service';
 import {Observable} from 'rxjs/internal/Observable';
 import {CategoryModel} from '../../../../models/category.model';
+import {SharedService} from "../../../../services/shared.service";
 
 @Component({
   selector: 'app-task-form',
@@ -33,10 +34,16 @@ export class TaskFormComponent implements OnInit, OnChanges {
 
   constructor(private formBuilder: FormBuilder,
               public dialog: MatDialog,
-              private categoryService: CategoryService) {
+              private categoryService: CategoryService,
+              private sharedService: SharedService) {
   }
 
   ngOnInit(): void {
+    this.sharedService.categoriesUpdated.subscribe(value => {
+      if (value) {
+        this.categories = this.categoryService.getUserCategories();
+      }
+    });
     this.categories = this.categoryService.getUserCategories();
   }
 
@@ -47,7 +54,10 @@ export class TaskFormComponent implements OnInit, OnChanges {
   openCategoryPopup(e) {
     e.stopPropagation();
     e.preventDefault();
-    this.dialog.open(CreateCategoryDialogComponent);
+    const dialogRef = this.dialog.open(CreateCategoryDialogComponent);
+    // dialogRef.afterClosed().subscribe(() => {
+    //   this.categories = this.categoryService.getUserCategories();
+    // });
   }
 
   ngOnChanges(): void {

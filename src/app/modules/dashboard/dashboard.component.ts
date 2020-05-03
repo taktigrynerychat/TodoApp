@@ -1,26 +1,26 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/internal/Observable';
 import {TaskService} from '../../services/task.service';
 import {TaskModel} from '../../models/task.model';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateTaskDialogComponent} from '../shared/components/create-task-dialog/create-task-dialog.component';
-import {CategoryService} from "../../services/category.service";
-import {CategoryModel} from "../../models/category.model";
-import {Subject} from "rxjs/internal/Subject";
-import {map} from "rxjs/operators";
+import {CategoryService} from '../../services/category.service';
+import {CategoryModel} from '../../models/category.model';
+import {Subject} from 'rxjs/internal/Subject';
+import {map} from 'rxjs/operators';
+import {SharedService} from '../../services/shared.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.less'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
 
   constructor(private taskService: TaskService,
               public dialog: MatDialog,
               private categoryService: CategoryService,
-              // private cdr: ChangeDetectorRef
+              private sharedService: SharedService
   ) {
   }
 
@@ -31,6 +31,15 @@ export class DashboardComponent implements OnInit {
   unsub = new Subject();
 
   ngOnInit(): void {
+    this.getUserCategories();
+    this.sharedService.categoriesUpdated.subscribe(value => {
+      if (value) {
+        this.getUserCategories();
+      }
+    });
+  }
+
+  getUserCategories() {
     this.categoryService.getUserCategories().subscribe({
       next: value => {
         this.categories = value;
@@ -49,7 +58,6 @@ export class DashboardComponent implements OnInit {
     })).subscribe({
       next: value => {
         this.tasks2 = value;
-        console.log(1);
       }
     });
   }
@@ -62,7 +70,6 @@ export class DashboardComponent implements OnInit {
 
   selectTask(task: TaskModel) {
     this.selectedTask ? (this.selectedTask.id !== task.id ? this.selectedTask = task : this.selectedTask = null) : this.selectedTask = task;
-    console.log(this.selectedTask);
   }
 
   updateTask(task: TaskModel) {
@@ -80,7 +87,10 @@ export class DashboardComponent implements OnInit {
 
   openPopup() {
     const dialogRef = this.dialog.open(CreateTaskDialogComponent);
-    dialogRef.afterClosed().subscribe(() => this.getAllTasks());
+    dialogRef.afterClosed().subscribe((value) => {
+      this.getAllTasks();
+      console.log(value);
+    });
   }
 
   trackFn(index, item) {

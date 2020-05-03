@@ -1,5 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {CategoryModel} from '../../../../models/category.model';
+import {MatDialogRef} from "@angular/material/dialog";
+import {CategoryService} from "../../../../services/category.service";
+import {SharedService} from "../../../../services/shared.service";
 
 @Component({
   selector: 'app-create-category-dialog',
@@ -9,14 +12,21 @@ import {CategoryModel} from '../../../../models/category.model';
 })
 export class CreateCategoryDialogComponent implements OnInit {
 
-  constructor() {
+  constructor(public dialogRef: MatDialogRef<CreateCategoryDialogComponent>,
+              private categoryService: CategoryService,
+              private sharedService: SharedService) {
   }
 
   ngOnInit(): void {
   }
 
   saveCategory(e: CategoryModel) {
-    console.log(e);
+    this.categoryService.createCategory(e).subscribe(status => {
+      if (status === 200) {
+        this.dialogRef.close();
+        this.sharedService.categoriesUpdated = true;
+      }
+    });
   }
 
 }
