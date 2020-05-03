@@ -6,4 +6,6 @@ export interface TaskModel {
   end_date?: string;
   is_done: boolean;
   category_id?: number;
+  category?: string;
+  color?: string;
 }

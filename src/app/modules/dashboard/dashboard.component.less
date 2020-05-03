@@ -24,10 +24,10 @@
   &-content {
     &__grid {
       padding: 30px;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(@card-size, 1fr));
       display: grid;
       width: 100%;
-      grid-auto-rows: 180px;
+      grid-auto-rows: @card-size;
       grid-gap: 15px;
 
     }
