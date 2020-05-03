@@ -35,6 +35,11 @@ export class TaskInfoComponent implements OnInit, OnChanges {
     console.log(e);
   }
 
+  get runChangeDetection() {
+    console.log('Checking the view');
+    return true;
+  }
+
   ngOnChanges(): void {
     if (this.task) {
       this.taskForm = this.formBuilder.group({

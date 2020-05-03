@@ -3,10 +3,10 @@
   <form class='task-comments__form' [formGroup]="commentForm" (ngSubmit)="saveComment()">
     <mat-form-field>
       <input matInput placeholder="comment" formControlName="text">
-      <mat-icon matSuffix>send</mat-icon>
+      <mat-icon matSuffix (click)="saveComment()">send</mat-icon>
     </mat-form-field>
   </form>
-  <div class="task-comments__item task-comments-item" *ngFor="let comment of comments | async">
+  <div class="task-comments__item task-comments-item" *ngFor="let comment of comments; trackBy: trackFn">
     <div class="task-comments-item__header">
       <span class="task-comments-item__login">{{userLogin}}</span>
       <span class="task-comments-item__date">{{comment.date | date: 'd MMM hh:mm'}}</span>

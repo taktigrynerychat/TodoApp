@@ -55,9 +55,6 @@ export class TaskFormComponent implements OnInit, OnChanges {
     e.stopPropagation();
     e.preventDefault();
     const dialogRef = this.dialog.open(CreateCategoryDialogComponent);
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.categories = this.categoryService.getUserCategories();
-    // });
   }
 
   ngOnChanges(): void {
