@@ -14,10 +14,11 @@
               fill="white"></path>
           </svg>
         </div>
-        <app-task-card *ngFor="let task of tasks | async"
+        <app-task-card *ngFor="let task of tasks2; trackBy: trackFn"
                        [task]="task"
-                       [isSelected]="selectedTask===task"
-                       (taskSelection)="selectTask($event)">
+                       [isSelected]="selectedTask?.id===task?.id"
+                       (taskSelection)="selectTask($event)"
+                       (taskUpdate)="updateTask($event)">
         </app-task-card>
       </div>
     </div>

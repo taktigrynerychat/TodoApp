@@ -13,17 +13,19 @@ import {map} from "rxjs/operators";
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent implements OnInit {
 
   constructor(private taskService: TaskService,
               public dialog: MatDialog,
               private categoryService: CategoryService,
-              private cdr: ChangeDetectorRef) {
+              // private cdr: ChangeDetectorRef
+  ) {
   }
 
   tasks: Observable<TaskModel[]>;
+  tasks2: TaskModel[];
   selectedTask: TaskModel;
   categories: CategoryModel[];
   unsub = new Subject();
@@ -33,14 +35,20 @@ export class DashboardComponent implements OnInit {
       next: value => {
         this.categories = value;
       }, complete: () => {
-        this.tasks = this.taskService.getAllTasks().pipe(map((tasks: TaskModel[]) => {
-          return tasks.map((task: TaskModel) => {
-            const cat = this.findCategory(task.category_id);
-            return {...task, category: cat ? cat.name : null , color: cat ? cat.color : null};
-          });
-        }));
-        this.cdr.markForCheck();
+        this.getAllTasks();
       }
+    });
+  }
+
+  getAllTasks() {
+    this.taskService.getAllTasks().pipe(map((tasks: TaskModel[]) => {
+      return tasks.map((task: TaskModel) => {
+        const cat = this.findCategory(task.category_id);
+        return {...task, category: cat ? cat.name : null, color: cat ? cat.color : null};
+      });
+    })).subscribe(value => {
+      this.tasks2 = value;
+      console.log(1);
     });
   }
 
@@ -55,8 +63,16 @@ export class DashboardComponent implements OnInit {
     console.log(this.selectedTask);
   }
 
+  updateTask(task: TaskModel) {
+    console.log(task);
+  }
+
   openPopup() {
     this.dialog.open(CreateTaskDialogComponent);
+  }
+
+  trackFn(index, item) {
+    return item.id;
   }
 }
 
