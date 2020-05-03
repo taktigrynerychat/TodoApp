@@ -1,16 +1,14 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
-import {TaskModel} from '../../../../models/task.model';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {CommentModel} from '../../../../models/comment.model';
-import {Observable} from 'rxjs/internal/Observable';
 import {CommentService} from '../../../../services/comment.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {of} from "rxjs/internal/observable/of";
+
 
 @Component({
   selector: 'app-task-comments',
   templateUrl: './task-comments.component.html',
   styleUrls: ['./task-comments.component.less'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskCommentsComponent implements OnInit, OnChanges {
 
@@ -18,12 +16,13 @@ export class TaskCommentsComponent implements OnInit, OnChanges {
   taskId: number;
 
   userLogin: string;
-  comments: Observable<CommentModel[]>;
+  comments: CommentModel[];
 
   commentForm: FormGroup;
 
   constructor(private commentService: CommentService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -32,15 +31,27 @@ export class TaskCommentsComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (this.taskId) {
-      this.comments = this.commentService.getTaskComments(this.taskId);
+      this.getTaskComments();
       this.createCommentForm();
     }
   }
 
+  getTaskComments() {
+    this.commentService.getTaskComments(this.taskId).subscribe({
+      next: value => this.comments = value,
+      complete: () => {
+        this.cdr.markForCheck();
+      }
+    });
+  }
+
   saveComment() {
-    console.log(this.commentForm.value);
-    this.createCommentForm();
-    this.comments = of<CommentModel[]>([{ ...this.commentForm.value, id: 2}]);
+    this.commentService.createTaskComment(this.commentForm.value).subscribe(status => {
+      if (status === 200) {
+        this.getTaskComments();
+        this.createCommentForm();
+      }
+    });
   }
 
   createCommentForm() {
@@ -48,5 +59,9 @@ export class TaskCommentsComponent implements OnInit, OnChanges {
       task_id: this.taskId,
       text: null
     });
+  }
+
+  trackFn(index, item) {
+    return item.id;
   }
 }

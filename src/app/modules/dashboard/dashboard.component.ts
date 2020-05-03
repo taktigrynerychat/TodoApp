@@ -13,7 +13,7 @@ import {SharedService} from '../../services/shared.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.less'],
+  styleUrls: ['./dashboard.component.less']
 })
 export class DashboardComponent implements OnInit {
 
@@ -83,7 +83,6 @@ export class DashboardComponent implements OnInit {
     });
     console.log(task);
   }
-
 
   openPopup() {
     const dialogRef = this.dialog.open(CreateTaskDialogComponent);

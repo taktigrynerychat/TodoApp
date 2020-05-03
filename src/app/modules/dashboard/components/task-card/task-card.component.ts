@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TaskModel} from "../../../../models/task.model";
-import {MatCheckboxChange} from "@angular/material/checkbox";
+import {TaskModel} from '../../../../models/task.model';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-task-card',
