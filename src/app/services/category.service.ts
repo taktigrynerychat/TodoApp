@@ -17,8 +17,8 @@ export class CategoryService {
     return this.http.get<CategoryModel[]>(`${url.API}/getUserCategories?id=${localStorage.getItem('userId')}`);
   }
 
-  createCategory(category: CategoryModel): Observable<HttpResponse> {
-    return this.http.post<HttpResponse>(`${url.API}/createCategory`, category, {observe: 'response'})
-      .pipe(map((response: HttpResponse) => response.status));
+  createCategory(category: CategoryModel): Observable<number> {
+    return this.http.post<number>(`${url.API}/createCategory`, category, {observe: 'response'})
+      .pipe(map((response: HttpResponse<number>) => response.status));
   }
 }

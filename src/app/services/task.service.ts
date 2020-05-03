@@ -17,13 +17,13 @@ export class TaskService {
     return this.http.get<TaskModel[]>(`${url.API}/getUserTasks?id=${localStorage.getItem('userId')}`);
   }
 
-  createUserTask(task: TaskModel): Observable<HttpResponse> {
-    return this.http.post<HttpResponse>(`${url.API}/createUserTask`, task, {observe: 'response'})
-      .pipe(map((response: HttpResponse) => response.status));
+  createUserTask(task: TaskModel): Observable<number> {
+    return this.http.post<number>(`${url.API}/createUserTask`, task, {observe: 'response'})
+      .pipe(map((response: HttpResponse<number>) => response.status));
   }
 
-  updateUserTask(task: TaskModel): Observable<HttpResponse> {
-    return this.http.post<HttpResponse>(`${url.API}/updateUserTask`, task, {observe: 'response'})
-      .pipe(map((response: HttpResponse) => response.status));
+  updateUserTask(task: TaskModel): Observable<number> {
+    return this.http.post<number>(`${url.API}/updateUserTask`, task, {observe: 'response'})
+      .pipe(map((response: HttpResponse<number>) => response.status));
   }
 }

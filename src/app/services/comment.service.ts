@@ -17,8 +17,8 @@ export class CommentService {
     return this.http.get<CommentModel[]>(`${url.API}/getTaskComments?id=${id}`);
   }
 
-  createTaskComment(comment: CommentModel): Observable<HttpResponse> {
-    return this.http.post<HttpResponse>(`${url.API}/createTaskComment`, comment, {observe: 'response'})
-      .pipe(map((response: HttpResponse) => response.status));
+  createTaskComment(comment: CommentModel): Observable<number> {
+    return this.http.post<number>(`${url.API}/createTaskComment`, comment, {observe: 'response'})
+      .pipe(map((response: HttpResponse<number>) => response.status));
   }
 }
