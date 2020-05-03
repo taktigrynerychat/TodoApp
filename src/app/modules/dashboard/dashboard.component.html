@@ -1,7 +1,7 @@
 <app-page-layout>
   <div content class="dashboard">
     <div class="dashboard__sidebar">
-      <app-task-info [task]="selectedTask"></app-task-info>
+      <app-task-info [task]="selectedTask" (taskUpdate)="getAllTasks()"></app-task-info>
     </div>
     <div class="dashboard__content dashboard-content">
       <div class="dashboard-content__grid">

@@ -77,8 +77,10 @@ export class DashboardComponent implements OnInit {
     console.log(task);
   }
 
+
   openPopup() {
-    this.dialog.open(CreateTaskDialogComponent);
+    const dialogRef = this.dialog.open(CreateTaskDialogComponent);
+    dialogRef.afterClosed().subscribe(() => this.getAllTasks());
   }
 
   trackFn(index, item) {

@@ -1,6 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {TaskService} from '../../../../services/task.service';
 
 @Component({
   selector: 'app-task-info',
@@ -13,15 +14,24 @@ export class TaskInfoComponent implements OnInit, OnChanges {
   @Input()
   task: TaskModel;
 
+  @Output()
+  taskUpdate: EventEmitter<any> = new EventEmitter<any>();
+
   taskForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private taskService: TaskService) {
   }
 
   ngOnInit(): void {
   }
 
   saveTask(e: TaskModel) {
+    this.taskService.updateUserTask(e).subscribe(status => {
+      if (status === 200) {
+        this.taskUpdate.emit();
+      }
+    });
     console.log(e);
   }
 
