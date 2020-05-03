@@ -3,6 +3,8 @@
     <span class="task-info-title__label">Selected task:</span>
     <span class="task-info-title__name">{{task.name}}</span>
   </div>
-  <app-task-form [task]="task" [buttonText]="'Save changes'"></app-task-form>
+  <app-task-form [task]="task"
+                 [buttonText]="'Save changes'"
+                 (formSubmit)="saveTask($event)"></app-task-form>
   <app-task-comments [task]="task"></app-task-comments>
 </div>

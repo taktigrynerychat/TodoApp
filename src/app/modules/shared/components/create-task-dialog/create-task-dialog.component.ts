@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {TaskModel} from '../../../../models/task.model';
 
 @Component({
   selector: 'app-create-task-dialog',
@@ -12,5 +13,9 @@ export class CreateTaskDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  saveTask(e: TaskModel) {
+    console.log(e);
   }
 }

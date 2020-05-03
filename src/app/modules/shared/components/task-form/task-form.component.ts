@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
@@ -24,6 +24,9 @@ export class TaskFormComponent implements OnInit, OnChanges {
   @Input()
   createMode = false;
 
+  @Output()
+  formSubmit: EventEmitter<TaskModel> = new EventEmitter<TaskModel>();
+
   taskForm: FormGroup;
 
   categories: Observable<CategoryModel[]>;
@@ -38,7 +41,7 @@ export class TaskFormComponent implements OnInit, OnChanges {
   }
 
   saveTask() {
-    console.log(this.taskForm.value);
+    this.formSubmit.emit(this.taskForm.value);
   }
 
   openCategoryPopup(e) {
