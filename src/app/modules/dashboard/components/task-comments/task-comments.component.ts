@@ -14,7 +14,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class TaskCommentsComponent implements OnInit, OnChanges {
 
   @Input()
-  task: TaskModel;
+  taskId: number;
 
   userLogin: string;
   comments: Observable<CommentModel[]>;
@@ -34,10 +34,10 @@ export class TaskCommentsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.task) {
-      this.comments = this.commentService.getTaskComments(this.task.id);
+    if (this.taskId) {
+      this.comments = this.commentService.getTaskComments(this.taskId);
       this.commentForm = this.fb.group({
-        task_id: this.task.id,
+        task_id: this.taskId,
         text: null
       });
     }

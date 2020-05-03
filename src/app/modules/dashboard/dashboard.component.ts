@@ -46,9 +46,11 @@ export class DashboardComponent implements OnInit {
         const cat = this.findCategory(task.category_id);
         return {...task, category: cat ? cat.name : null, color: cat ? cat.color : null};
       });
-    })).subscribe(value => {
-      this.tasks2 = value;
-      console.log(1);
+    })).subscribe({
+      next: value => {
+        this.tasks2 = value;
+        console.log(1);
+      }
     });
   }
 
@@ -64,6 +66,14 @@ export class DashboardComponent implements OnInit {
   }
 
   updateTask(task: TaskModel) {
+    this.taskService.updateUserTask(task).subscribe(status => {
+      if (status === 200) {
+        this.getAllTasks();
+        if (this.selectedTask && task.id === this.selectedTask.id) {
+          this.selectedTask = task;
+        }
+      }
+    });
     console.log(task);
   }
 
