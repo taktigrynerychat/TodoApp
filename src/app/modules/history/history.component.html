@@ -1,0 +1,7 @@
+<app-page-layout>
+  <div content>
+    <p *ngFor="let task of tasks | async">
+      {{task | json}}
+    </p>
+  </div>
+</app-page-layout>

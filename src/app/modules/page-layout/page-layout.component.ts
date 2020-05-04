@@ -16,18 +16,6 @@ export class PageLayoutComponent implements OnInit {
     {
       text: 'history',
       url: '/history'
-    },
-    {
-      text: 'auth',
-      url: '/auth'
-    },
-    {
-      text: 'sign in',
-      url: '/auth/sign-in'
-    },
-    {
-      text: 'about',
-      url: '/'
     }
   ];
   constructor() { }
