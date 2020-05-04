@@ -8,6 +8,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthModule} from './modules/auth/auth.module';
 import {HistoryModule} from './modules/history/history.module';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import {HistoryModule} from './modules/history/history.module';
     AppRoutingModule,
     DashboardModule,
     AuthModule,
-    HistoryModule
+    HistoryModule,
+    environment.production ? [] : AkitaNgDevtools,
+    AkitaNgRouterStoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
