@@ -1,5 +1,9 @@
 import {CategoryModel} from '../../models/category.model';
 
 export function createInitialState(): CategoryModel {
-  return {};
+  return {
+    id: null,
+    name: null,
+    color: null
+  };
 }

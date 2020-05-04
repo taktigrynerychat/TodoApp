@@ -7,7 +7,9 @@ import {CreateTaskDialogComponent} from '../shared/components/create-task-dialog
 import {CategoryService} from "../../services/category.service";
 import {CategoryModel} from "../../models/category.model";
 import {Subject} from "rxjs/internal/Subject";
-import {map} from "rxjs/operators";
+import {find, map} from "rxjs/operators";
+import {CategoriesService} from "../../state/categories/categories.service";
+import {CategoriesQuery} from "../../state/categories/categories.query";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,36 +21,32 @@ export class DashboardComponent implements OnInit {
 
   constructor(private taskService: TaskService,
               public dialog: MatDialog,
-              private categoryService: CategoryService,
-              private cdr: ChangeDetectorRef) {
+              // private categoryService: CategoryService,
+              private cdr: ChangeDetectorRef,
+              private categoriesService: CategoriesService,
+              private categoriesQuery: CategoriesQuery) {
   }
 
   tasks: Observable<TaskModel[]>;
   selectedTask: TaskModel;
-  categories: CategoryModel[];
+  categories: Observable<CategoryModel[]>;
   unsub = new Subject();
 
   ngOnInit(): void {
-    this.categoryService.getUserCategories().subscribe({
-      next: value => {
-        this.categories = value;
-      }, complete: () => {
-        this.tasks = this.taskService.getAllTasks().pipe(map((tasks: TaskModel[]) => {
-          return tasks.map((task: TaskModel) => {
-            const cat = this.findCategory(task.category_id);
-            return {...task, category: cat ? cat.name : null , color: cat ? cat.color : null};
-          });
-        }));
+    this.categories = this.categoriesQuery.selectAll();
+    this.categoriesService.getUserCategories().subscribe({
+      complete: () => {
+        this.tasks = this.taskService.getAllTasks();
         this.cdr.markForCheck();
       }
     });
   }
 
-  findCategory(id): CategoryModel {
-    return this.categories.find(cat => {
-      return cat.id === id;
-    });
-  }
+  // findCategory(id): CategoryModel {
+  //   return this.categories.find(cat => {
+  //     return cat.id === id;
+  //   });
+  // }
 
   selectTask(task: TaskModel) {
     this.selectedTask ? (this.selectedTask.id !== task.id ? this.selectedTask = task : this.selectedTask = null) : this.selectedTask = task;
