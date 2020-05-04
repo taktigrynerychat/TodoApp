@@ -4,6 +4,7 @@ import {url} from '../../environments/environment';
 import {Observable} from 'rxjs/internal/Observable';
 import {CommentModel} from '../models/comment.model';
 import {map} from 'rxjs/operators';
+import {ID} from '@datorama/akita';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class CommentService {
   constructor(private http: HttpClient) {
   }
 
-  getTaskComments(id: number): Observable<CommentModel[]> {
+  getTaskComments(id: ID): Observable<CommentModel[]> {
     return this.http.get<CommentModel[]>(`${url.API}/getTaskComments?id=${id}`);
   }
 

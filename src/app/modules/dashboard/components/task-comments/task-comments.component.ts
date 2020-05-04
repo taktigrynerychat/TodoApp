@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommentsStore} from '../../../../state/comments/comments.store';
 import {CommentsQuery} from '../../../../state/comments/comments.query';
 import {CommentsService} from '../../../../state/comments/comments.service';
+import {guid} from "@datorama/akita";
 
 @Component({
   selector: 'app-task-comments',
@@ -40,6 +41,7 @@ export class TaskCommentsComponent implements OnInit, OnChanges {
 
   createCommentForm() {
     this.commentForm = this.fb.group({
+      id: guid(),
       task_id: this.task.id,
       text: null
     });

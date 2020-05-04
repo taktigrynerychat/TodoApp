@@ -1,5 +1,7 @@
+import {ID} from '@datorama/akita';
+
 export interface CategoryModel {
-  id: number;
+  id: ID;
   name: string;
   color?: string;
 }
