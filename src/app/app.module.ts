@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthModule} from './modules/auth/auth.module';
+import {HistoryModule} from './modules/history/history.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {AuthModule} from './modules/auth/auth.module';
     HttpClientModule,
     AppRoutingModule,
     DashboardModule,
-    AuthModule
+    AuthModule,
+    HistoryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
