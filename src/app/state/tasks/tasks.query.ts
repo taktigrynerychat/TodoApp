@@ -20,6 +20,8 @@ export class TasksQuery extends QueryEntity<TasksState> {
       this.categoriesQuery.selectAll({asObject: true})
     ]
   ).pipe(map(joinItems));
+
+  doneTasks$ = this.joinedTasks$.pipe(map(tasks => tasks.filter(task => task.is_done)));
 }
 
 function joinItems([tasks, categories]: [TaskModelForJoin[], HashMap<CategoryModel>]) {
@@ -27,8 +29,8 @@ function joinItems([tasks, categories]: [TaskModelForJoin[], HashMap<CategoryMod
     const category = categories[task.category_id];
     return {
       ...task,
-      category: category.name,
-      color: category.color
+      category: category?.name,
+      color: category?.color
     };
   });
 }
