@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserInfoModel} from '../../../../models/user.model';
+import {resetStores} from '@datorama/akita';
 
 @Component({
   selector: 'app-header',
@@ -39,6 +40,7 @@ export class HeaderComponent implements OnInit {
   }
 
   signOut() {
+    resetStores();
     localStorage.removeItem('user');
     localStorage.removeItem('userId');
     this.navigateTo('/auth');

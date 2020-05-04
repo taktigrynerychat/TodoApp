@@ -10,6 +10,8 @@ import {Subject} from "rxjs/internal/Subject";
 import {find, map} from "rxjs/operators";
 import {CategoriesService} from "../../state/categories/categories.service";
 import {CategoriesQuery} from "../../state/categories/categories.query";
+import {TasksService} from "../../state/tasks/tasks.service";
+import {TasksQuery} from "../../state/tasks/tasks.query";
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +26,9 @@ export class DashboardComponent implements OnInit {
               // private categoryService: CategoryService,
               private cdr: ChangeDetectorRef,
               private categoriesService: CategoriesService,
-              private categoriesQuery: CategoriesQuery) {
+              private categoriesQuery: CategoriesQuery,
+              private tasksService: TasksService,
+              private tasksQuery: TasksQuery) {
   }
 
   tasks: Observable<TaskModel[]>;
@@ -33,10 +37,11 @@ export class DashboardComponent implements OnInit {
   unsub = new Subject();
 
   ngOnInit(): void {
+    this.tasks = this.tasksQuery.joinedTasks$;
     this.categories = this.categoriesQuery.selectAll();
     this.categoriesService.getUserCategories().subscribe({
       complete: () => {
-        this.tasks = this.taskService.getAllTasks();
+        this.tasksService.getAllTasks().subscribe();
         this.cdr.markForCheck();
       }
     });
