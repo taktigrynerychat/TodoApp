@@ -17,6 +17,9 @@ export class TaskCardComponent implements OnInit {
   @Input()
   isSelected = false;
 
+  @Input()
+  selectedTask: TaskModel;
+
   @Output()
   taskSelection: EventEmitter<TaskModel> = new EventEmitter<TaskModel>();
 

@@ -1,6 +1,6 @@
 <div class="task-card"
      (click)="selectTask()"
-     [ngClass]="{'_selected' : isSelected}">
+     [ngClass]="{'_selected' : selectedTask?.id === task.id}">
   <div class="task-card__header-wrapper">
     <div class="task-card__header">
       <span class="task-card__title">{{task.name}}</span>

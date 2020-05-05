@@ -10,6 +10,7 @@ import {CategoriesService} from '../../state/categories/categories.service';
 import {CategoriesQuery} from '../../state/categories/categories.query';
 import {TasksService} from '../../state/tasks/tasks.service';
 import {TasksQuery} from '../../state/tasks/tasks.query';
+import {TasksStore} from "../../state/tasks/tasks.store";
 
 @Component({
   selector: 'app-dashboard',
@@ -24,15 +25,17 @@ export class DashboardComponent implements OnInit {
               private categoriesService: CategoriesService,
               private categoriesQuery: CategoriesQuery,
               private tasksService: TasksService,
-              private tasksQuery: TasksQuery) {
+              private tasksQuery: TasksQuery,
+              private tasksStore: TasksStore) {
   }
 
   tasks: Observable<TaskModel[]>;
-  selectedTask: TaskModel;
+  selectedTask: Observable<TaskModel>;
   categories: Observable<CategoryModel[]>;
   unsub = new Subject();
 
   ngOnInit(): void {
+    this.selectedTask = this.tasksQuery.selectActive();
     this.tasks = this.tasksQuery.joinedTasks$;
     this.categories = this.categoriesQuery.selectAll();
     this.categoriesService.getUserCategories().subscribe();
@@ -41,8 +44,9 @@ export class DashboardComponent implements OnInit {
   }
 
   selectTask(task: TaskModel) {
-    this.selectedTask ? (this.selectedTask.id !== task.id ? this.selectedTask = task : this.selectedTask = null) : this.selectedTask = task;
-    console.log(this.selectedTask);
+    !this.tasksQuery.hasActive(task.id) ? this.tasksStore.setActive(task.id) : this.tasksStore.setActive(null);
+    // this.tasksStore.toggleActive(task);
+    console.log(this.tasksQuery.getActive());
   }
 
   openPopup() {
