@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {CategoryModel} from '../../../../models/category.model';
 import {CategoriesService} from '../../../../state/categories/categories.service';
-import {MatDialogRef} from "@angular/material/dialog";
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-category-dialog',

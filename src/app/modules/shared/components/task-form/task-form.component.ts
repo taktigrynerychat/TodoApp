@@ -8,6 +8,7 @@ import {Observable} from 'rxjs/internal/Observable';
 import {CategoryModel} from '../../../../models/category.model';
 import {CategoriesQuery} from "../../../../state/categories/categories.query";
 import {CategoriesService} from "../../../../state/categories/categories.service";
+import {guid} from "@datorama/akita";
 
 @Component({
   selector: 'app-task-form',
@@ -67,6 +68,7 @@ export class TaskFormComponent implements OnInit, OnChanges {
       });
     } else if (this.createMode) {
       this.taskForm = this.formBuilder.group({
+        id: guid(),
         user_id: localStorage.getItem('userId'),
         name: null,
         description: null,

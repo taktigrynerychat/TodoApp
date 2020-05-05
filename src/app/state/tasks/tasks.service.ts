@@ -25,4 +25,12 @@ export class TasksService {
       this.tasksStore.set(tasks);
     }));
   }
+
+  createUserTask(task: TaskModel): Observable<number> {
+    return this.taskService.createUserTask(task).pipe(tap(status => {
+      if (status === 200) {
+        this.tasksStore.add(task);
+      }
+    }));
+  }
 }
