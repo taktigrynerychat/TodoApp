@@ -33,4 +33,12 @@ export class TasksService {
       }
     }));
   }
+
+  updateUserTask(task: TaskModel): Observable<number> {
+    return this.taskService.updateUserTask(task).pipe(tap(status => {
+      if (status === 200) {
+        this.tasksStore.update(task.id, task);
+      }
+    }));
+  }
 }

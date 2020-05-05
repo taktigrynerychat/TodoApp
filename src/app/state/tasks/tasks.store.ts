@@ -4,7 +4,7 @@ import {EntityStore, StoreConfig} from '@datorama/akita';
 
 
 @Injectable({providedIn: 'root'})
-@StoreConfig({name: 'tasks', idKey: 'category_id', resettable: true})
+@StoreConfig({name: 'tasks', resettable: true})
 export class TasksStore extends EntityStore<TasksState> {
 
   constructor() {
