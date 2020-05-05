@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
-import {ID} from '@datorama/akita';
-import {HttpClient} from '@angular/common/http';
 import {TasksStore} from './tasks.store';
 import {tap} from 'rxjs/operators';
-import {TaskService} from "../../services/task.service";
-import {Observable} from "rxjs/internal/Observable";
-import {TaskModel} from "../../models/task.model";
-import {TasksQuery} from "./tasks.query";
-import {of} from "rxjs/internal/observable/of";
+import {TaskService} from '../../services/task.service';
+import {Observable} from 'rxjs/internal/Observable';
+import {TaskModel} from '../../models/task.model';
+import {TasksQuery} from './tasks.query';
+import {of} from 'rxjs/internal/observable/of';
 
 @Injectable({providedIn: 'root'})
 export class TasksService {
@@ -30,6 +28,7 @@ export class TasksService {
     return this.taskService.createUserTask(task).pipe(tap(status => {
       if (status === 200) {
         this.tasksStore.add(task);
+        this.tasksStore.setActive(task.id);
       }
     }));
   }

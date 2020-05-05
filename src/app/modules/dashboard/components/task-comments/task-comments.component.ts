@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommentsStore} from '../../../../state/comments/comments.store';
 import {CommentsQuery} from '../../../../state/comments/comments.query';
 import {CommentsService} from '../../../../state/comments/comments.service';
-import {guid} from "@datorama/akita";
+import {guid, ID} from '@datorama/akita';
 
 @Component({
   selector: 'app-task-comments',
@@ -22,7 +22,7 @@ import {guid} from "@datorama/akita";
 export class TaskCommentsComponent implements OnInit, OnChanges {
 
   @Input()
-  task: TaskModel;
+  taskId: ID;
 
   userLogin: string;
   comments: Observable<CommentModel[]>;
@@ -42,7 +42,7 @@ export class TaskCommentsComponent implements OnInit, OnChanges {
   createCommentForm() {
     this.commentForm = this.fb.group({
       id: guid(),
-      task_id: this.task.id,
+      task_id: this.taskId,
       text: null
     });
   }
@@ -53,8 +53,8 @@ export class TaskCommentsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.task) {
-      this.commentService.getTaskComments(this.task.id).subscribe();
+    if (this.taskId) {
+      this.commentService.getTaskComments(this.taskId).subscribe();
       this.createCommentForm();
     }
   }
