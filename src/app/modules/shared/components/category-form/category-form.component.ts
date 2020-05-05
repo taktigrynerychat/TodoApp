@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {CategoryModel} from '../../../../models/category.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {guid} from '@datorama/akita';
 
 @Component({
   selector: 'app-category-form',
@@ -40,6 +41,10 @@ export class CategoryFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.createCategoryForm();
+  }
+
+  createCategoryForm() {
     if (this.category) {
       this.categoryForm = this.fb.group({
         id: this.category.id,
@@ -48,6 +53,7 @@ export class CategoryFormComponent implements OnInit {
       });
     } else if (this.createMode) {
       this.categoryForm = this.fb.group({
+        id: guid(),
         user_id: localStorage.getItem('userId'),
         name: null,
         color: [null, Validators.pattern(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i)]

@@ -26,4 +26,12 @@ export class CategoriesService {
     }));
   }
 
+  createCategory(category: CategoryModel): Observable<number> {
+    return this.categoryService.createCategory(category).pipe(tap(status => {
+      if (status === 200) {
+        this.categoriesStore.add(category);
+      }
+    }));
+  }
+
 }
