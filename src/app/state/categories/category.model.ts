@@ -1,9 +1,9 @@
 import {CategoryModel} from '../../models/category.model';
+import {EntityState} from '@datorama/akita';
 
-export function createInitialState(): CategoryModel {
-  return {
-    id: null,
-    name: null,
-    color: null
-  };
+export interface CategoriesState extends EntityState<CategoryModel> {
+}
+
+export function createInitialState(): CategoriesState {
+  return {};
 }
