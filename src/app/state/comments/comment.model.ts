@@ -1,9 +1,9 @@
 import {CommentModel} from '../../models/comment.model';
+import {EntityState} from '@datorama/akita';
 
-export function createInitialState(): CommentModel {
-  return {
-    id: null,
-    text: null,
-    date: null
-  };
+export interface CommentsState extends EntityState<CommentModel> {
+}
+
+export function createInitialState(): CommentsState {
+  return {};
 }

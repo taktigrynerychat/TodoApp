@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
-import { CommentsStore, CommentsState } from './comments.store';
+import { CommentsStore} from './comments.store';
+import {CommentsState} from './comment.model';
 
 @Injectable()
 export class CommentsQuery extends QueryEntity<CommentsState> {
