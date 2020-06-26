@@ -149,5 +149,8 @@
       }
     }
   },
-  "defaultProject": "todo-app"
+  "defaultProject": "todo-app",
+  "cli": {
+    "defaultCollection": "@datorama/akita"
+  }
 }

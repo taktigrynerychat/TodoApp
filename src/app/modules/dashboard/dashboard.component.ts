@@ -1,13 +1,16 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/internal/Observable';
 import {TaskService} from '../../services/task.service';
 import {TaskModel} from '../../models/task.model';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateTaskDialogComponent} from '../shared/components/create-task-dialog/create-task-dialog.component';
-import {CategoryService} from "../../services/category.service";
-import {CategoryModel} from "../../models/category.model";
-import {Subject} from "rxjs/internal/Subject";
-import {map} from "rxjs/operators";
+import {CategoryModel} from '../../models/category.model';
+import {Subject} from 'rxjs/internal/Subject';
+import {CategoriesService} from '../../state/categories/categories.service';
+import {CategoriesQuery} from '../../state/categories/categories.query';
+import {TasksService} from '../../state/tasks/tasks.service';
+import {TasksQuery} from '../../state/tasks/tasks.query';
+import {TasksStore} from "../../state/tasks/tasks.store";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,44 +22,39 @@ export class DashboardComponent implements OnInit {
 
   constructor(private taskService: TaskService,
               public dialog: MatDialog,
-              private categoryService: CategoryService,
-              private cdr: ChangeDetectorRef) {
+              private categoriesService: CategoriesService,
+              private categoriesQuery: CategoriesQuery,
+              private tasksService: TasksService,
+              private tasksQuery: TasksQuery,
+              private tasksStore: TasksStore) {
   }
 
   tasks: Observable<TaskModel[]>;
-  selectedTask: TaskModel;
-  categories: CategoryModel[];
+  selectedTask: Observable<TaskModel>;
+  categories: Observable<CategoryModel[]>;
   unsub = new Subject();
 
   ngOnInit(): void {
-    this.categoryService.getUserCategories().subscribe({
-      next: value => {
-        this.categories = value;
-      }, complete: () => {
-        this.tasks = this.taskService.getAllTasks().pipe(map((tasks: TaskModel[]) => {
-          return tasks.map((task: TaskModel) => {
-            const cat = this.findCategory(task.category_id);
-            return {...task, category: cat ? cat.name : null , color: cat ? cat.color : null};
-          });
-        }));
-        this.cdr.markForCheck();
-      }
-    });
-  }
-
-  findCategory(id): CategoryModel {
-    return this.categories.find(cat => {
-      return cat.id === id;
-    });
+    this.selectedTask = this.tasksQuery.selectActive();
+    this.tasks = this.tasksQuery.joinedTasks$;
+    this.categories = this.categoriesQuery.selectAll();
+    this.categoriesService.getUserCategories().subscribe();
+    this.tasksService.getAllTasks().subscribe();
+    // TODO: Есть ли необходимость вызывать getAllTasks() только на комплит стадии getUserCategories()?
   }
 
   selectTask(task: TaskModel) {
-    this.selectedTask ? (this.selectedTask.id !== task.id ? this.selectedTask = task : this.selectedTask = null) : this.selectedTask = task;
-    console.log(this.selectedTask);
+    !this.tasksQuery.hasActive(task.id) ? this.tasksStore.setActive(task.id) : this.tasksStore.setActive(null);
+    // this.tasksStore.toggleActive(task);
+    console.log(this.tasksQuery.getActive());
   }
 
   openPopup() {
     this.dialog.open(CreateTaskDialogComponent);
+  }
+
+  trackFn(index, item) {
+    return item.id;
   }
 }
 

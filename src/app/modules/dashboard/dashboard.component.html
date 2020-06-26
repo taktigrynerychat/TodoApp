@@ -1,7 +1,7 @@
 <app-page-layout>
   <div content class="dashboard">
     <div class="dashboard__sidebar">
-      <app-task-info [task]="selectedTask"></app-task-info>
+      <app-task-info [task]="selectedTask | async"></app-task-info>
     </div>
     <div class="dashboard__content dashboard-content">
       <div class="dashboard-content__grid">
@@ -14,9 +14,9 @@
               fill="white"></path>
           </svg>
         </div>
-        <app-task-card *ngFor="let task of tasks | async"
+        <app-task-card *ngFor="let task of tasks | async; trackBy: trackFn"
                        [task]="task"
-                       [isSelected]="selectedTask===task"
+                       [selectedTask]="selectedTask | async"
                        (taskSelection)="selectTask($event)">
         </app-task-card>
       </div>

@@ -6,5 +6,5 @@
   <app-task-form [task]="task"
                  [buttonText]="'Save changes'"
                  (formSubmit)="saveTask($event)"></app-task-form>
-  <app-task-comments [task]="task"></app-task-comments>
+  <app-task-comments [taskId]="task.id"></app-task-comments>
 </div>

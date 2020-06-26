@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
+import {TasksService} from '../../../../state/tasks/tasks.service';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-task-dialog',
@@ -9,13 +11,19 @@ import {TaskModel} from '../../../../models/task.model';
 })
 export class CreateTaskDialogComponent implements OnInit {
 
-  constructor() {
+  constructor(public dialogRef: MatDialogRef<CreateTaskDialogComponent>,
+              private tasksService: TasksService) {
   }
 
   ngOnInit(): void {
   }
 
-  saveTask(e: TaskModel) {
-    console.log(e);
+  createTask(task: TaskModel) {
+    this.tasksService.createUserTask(task).subscribe(status => {
+      if (status === 200) {
+        this.dialogRef.close();
+      }
+    });
+    console.log(task);
   }
 }

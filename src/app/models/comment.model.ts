@@ -1,5 +1,7 @@
+import {ID} from '@datorama/akita';
+
 export interface CommentModel {
-  id: number;
+  id: ID;
   text: string;
   date: any;
 }

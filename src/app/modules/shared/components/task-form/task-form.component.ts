@@ -6,6 +6,9 @@ import {CreateCategoryDialogComponent} from '../create-category-dialog/create-ca
 import {CategoryService} from '../../../../services/category.service';
 import {Observable} from 'rxjs/internal/Observable';
 import {CategoryModel} from '../../../../models/category.model';
+import {CategoriesQuery} from "../../../../state/categories/categories.query";
+import {CategoriesService} from "../../../../state/categories/categories.service";
+import {guid} from "@datorama/akita";
 
 @Component({
   selector: 'app-task-form',
@@ -33,11 +36,14 @@ export class TaskFormComponent implements OnInit, OnChanges {
 
   constructor(private formBuilder: FormBuilder,
               public dialog: MatDialog,
-              private categoryService: CategoryService) {
+              // private categoryService: CategoryService,
+              private categoriesService: CategoriesService,
+              private categoriesQuery: CategoriesQuery) {
   }
 
   ngOnInit(): void {
-    this.categories = this.categoryService.getUserCategories();
+    this.categoriesService.getUserCategories().subscribe();
+    this.categories = this.categoriesQuery.selectAll();
   }
 
   saveTask() {
@@ -62,6 +68,7 @@ export class TaskFormComponent implements OnInit, OnChanges {
       });
     } else if (this.createMode) {
       this.taskForm = this.formBuilder.group({
+        id: guid(),
         user_id: localStorage.getItem('userId'),
         name: null,
         description: null,

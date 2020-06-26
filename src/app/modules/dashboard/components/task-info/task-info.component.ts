@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {TasksService} from "../../../../state/tasks/tasks.service";
 
 @Component({
   selector: 'app-task-info',
@@ -15,14 +16,16 @@ export class TaskInfoComponent implements OnInit, OnChanges {
 
   taskForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private tasksService: TasksService) {
   }
 
   ngOnInit(): void {
   }
 
-  saveTask(e: TaskModel) {
-    console.log(e);
+  saveTask(task: TaskModel) {
+    this.tasksService.updateUserTask(task).subscribe();
+    // console.log(task);
   }
 
   ngOnChanges(): void {

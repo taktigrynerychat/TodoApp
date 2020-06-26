@@ -17,7 +17,7 @@
   <mat-form-field>
     <mat-select formControlName="category_id" placeholder="category">
       <mat-option (click)="openCategoryPopup($event)">
-        <span>create new category</span>
+        <span class = "task-form__create-category">create new category</span>
       </mat-option>
       <mat-option [value]="cat.id" *ngFor="let cat of categories | async">
         <div class="task-form__category task-form-category">
@@ -25,8 +25,10 @@
           <span class="task-form-category__name">{{cat.name}}</span>
         </div>
       </mat-option>
+      <mat-option [value]="null">
+        <span class="task-form__no-category">no category</span>
+      </mat-option>
     </mat-select>
-    <div class="task-form__category-color" *ngIf="taskForm.untouched" [ngStyle]="{background: task?.color}"></div>
   </mat-form-field>
   <span class="task-form-done__new-category" (click)="openCategoryPopup($event)">new category</span>
 

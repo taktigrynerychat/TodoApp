@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TaskModel} from "../../../../models/task.model";
+import {TaskModel} from '../../../../models/task.model';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {TasksService} from '../../../../state/tasks/tasks.service';
 
 @Component({
   selector: 'app-task-card',
@@ -15,10 +17,13 @@ export class TaskCardComponent implements OnInit {
   @Input()
   isSelected = false;
 
+  @Input()
+  selectedTask: TaskModel;
+
   @Output()
   taskSelection: EventEmitter<TaskModel> = new EventEmitter<TaskModel>();
 
-  constructor() {
+  constructor(private tasksService: TasksService) {
   }
 
   ngOnInit(): void {
@@ -26,6 +31,11 @@ export class TaskCardComponent implements OnInit {
 
   selectTask() {
     this.taskSelection.emit(this.task);
+  }
+
+  updateTask(e: MatCheckboxChange) {
+    const updatedTask = {...this.task, is_done: e.checked};
+    this.tasksService.updateUserTask(updatedTask).subscribe();
   }
 
 }
