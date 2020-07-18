@@ -1,7 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {TasksService} from "../../../../state/tasks/tasks.service";
+import {TasksService} from '../../../../state/tasks/tasks.service';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-task-info',
@@ -9,23 +11,20 @@ import {TasksService} from "../../../../state/tasks/tasks.service";
   styleUrls: ['./task-info.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskInfoComponent implements OnInit, OnChanges {
+export class TaskInfoComponent implements OnChanges, OnDestroy {
 
   @Input()
   task: TaskModel;
 
   taskForm: FormGroup;
+  private unsub = new Subject();
 
   constructor(private formBuilder: FormBuilder,
               private tasksService: TasksService) {
   }
 
-  ngOnInit(): void {
-  }
-
   saveTask(task: TaskModel) {
-    this.tasksService.updateUserTask(task).subscribe();
-    // console.log(task);
+    this.tasksService.updateUserTask(task).pipe(takeUntil(this.unsub)).subscribe();
   }
 
   ngOnChanges(): void {
@@ -39,6 +38,10 @@ export class TaskInfoComponent implements OnInit, OnChanges {
         category_id: this.task.category_id
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsub.unsubscribe();
   }
 
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/internal/Observable';
 import {TaskService} from '../../services/task.service';
 import {TaskModel} from '../../models/task.model';
@@ -10,7 +10,8 @@ import {CategoriesService} from '../../state/categories/categories.service';
 import {CategoriesQuery} from '../../state/categories/categories.query';
 import {TasksService} from '../../state/tasks/tasks.service';
 import {TasksQuery} from '../../state/tasks/tasks.query';
-import {TasksStore} from "../../state/tasks/tasks.store";
+import {TasksStore} from '../../state/tasks/tasks.store';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,7 @@ import {TasksStore} from "../../state/tasks/tasks.store";
   styleUrls: ['./dashboard.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private taskService: TaskService,
               public dialog: MatDialog,
@@ -38,14 +39,12 @@ export class DashboardComponent implements OnInit {
     this.selectedTask = this.tasksQuery.selectActive();
     this.tasks = this.tasksQuery.joinedTasks$;
     this.categories = this.categoriesQuery.selectAll();
-    this.categoriesService.getUserCategories().subscribe();
-    this.tasksService.getAllTasks().subscribe();
-    // TODO: Есть ли необходимость вызывать getAllTasks() только на комплит стадии getUserCategories()?
+    this.categoriesService.getUserCategories().pipe(takeUntil(this.unsub)).subscribe();
+    this.tasksService.getAllTasks().pipe(takeUntil(this.unsub)).subscribe();
   }
 
   selectTask(task: TaskModel) {
     !this.tasksQuery.hasActive(task.id) ? this.tasksStore.setActive(task.id) : this.tasksStore.setActive(null);
-    // this.tasksStore.toggleActive(task);
     console.log(this.tasksQuery.getActive());
   }
 
@@ -55,6 +54,10 @@ export class DashboardComponent implements OnInit {
 
   trackFn(index, item) {
     return item.id;
+  }
+
+  ngOnDestroy(): void {
+    this.unsub.unsubscribe();
   }
 }
 
