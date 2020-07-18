@@ -1,14 +1,24 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import {TaskModel} from '../../../../models/task.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateCategoryDialogComponent} from '../create-category-dialog/create-category-dialog.component';
-import {CategoryService} from '../../../../services/category.service';
 import {Observable} from 'rxjs/internal/Observable';
 import {CategoryModel} from '../../../../models/category.model';
-import {CategoriesQuery} from "../../../../state/categories/categories.query";
-import {CategoriesService} from "../../../../state/categories/categories.service";
-import {guid} from "@datorama/akita";
+import {CategoriesQuery} from '../../../../state/categories/categories.query';
+import {CategoriesService} from '../../../../state/categories/categories.service';
+import {guid} from '@datorama/akita';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from "rxjs/internal/Subject";
 
 @Component({
   selector: 'app-task-form',
@@ -16,7 +26,7 @@ import {guid} from "@datorama/akita";
   styleUrls: ['./task-form.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskFormComponent implements OnInit, OnChanges {
+export class TaskFormComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   task: TaskModel;
@@ -31,18 +41,17 @@ export class TaskFormComponent implements OnInit, OnChanges {
   formSubmit: EventEmitter<TaskModel> = new EventEmitter<TaskModel>();
 
   taskForm: FormGroup;
-
   categories: Observable<CategoryModel[]>;
+  private unsub = new Subject();
 
   constructor(private formBuilder: FormBuilder,
               public dialog: MatDialog,
-              // private categoryService: CategoryService,
               private categoriesService: CategoriesService,
               private categoriesQuery: CategoriesQuery) {
   }
 
   ngOnInit(): void {
-    this.categoriesService.getUserCategories().subscribe();
+    this.categoriesService.getUserCategories().pipe(takeUntil(this.unsub)).subscribe();
     this.categories = this.categoriesQuery.selectAll();
   }
 
@@ -76,6 +85,10 @@ export class TaskFormComponent implements OnInit, OnChanges {
         category_id: null
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsub.unsubscribe();
   }
 
 

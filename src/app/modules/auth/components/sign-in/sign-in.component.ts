@@ -1,8 +1,10 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserCredentialsModel} from '../../../../models/user.model';
 import {UserService} from '../../../../services/user.service';
 import {Router} from '@angular/router';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,8 +12,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./sign-in.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignInComponent implements OnInit {
-  public signInFormGroup: FormGroup;
+export class SignInComponent implements OnInit, OnDestroy {
+  signInFormGroup: FormGroup;
+  private unsub = new Subject();
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -26,7 +29,9 @@ export class SignInComponent implements OnInit {
   }
 
   signIn(creds: UserCredentialsModel) {
-    this.userService.singIn(creds).subscribe({
+    this.userService.singIn(creds)
+      .pipe(takeUntil(this.unsub))
+      .subscribe({
       next: value => {
         localStorage.setItem('user', JSON.stringify(value));
         localStorage.setItem('userId', '' + value.id);
@@ -35,6 +40,10 @@ export class SignInComponent implements OnInit {
         this.router.navigate(['/dashboard']);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.unsub.unsubscribe();
   }
 
 }
