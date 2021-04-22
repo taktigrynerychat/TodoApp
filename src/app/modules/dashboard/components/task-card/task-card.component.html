@@ -11,7 +11,7 @@
   </div>
   <div class="task-card__desc-wrapper">
              <span class="task-card__desc">
-            {{task.description | desc: 88}}
+            {{task?.description || '' | desc: 88}}
           </span>
   </div>
   <div class="task-card__category task-card-category">

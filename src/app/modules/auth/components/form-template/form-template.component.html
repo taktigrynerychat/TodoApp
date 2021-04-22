@@ -2,13 +2,13 @@
   <form [formGroup]="form" (ngSubmit)="formAction()">
     <span class = 'sign-in-form__title'>{{type === 'sign-up' ? 'sign up' : 'sing in'}}</span>
     <mat-form-field *ngIf="type === 'sign-up'">
-      <input formControlName="name" matInput placeholder="name">
+      <input formControlName="name" matInput placeholder="name" autocomplete="off">
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="login" matInput placeholder="login">
+      <input formControlName="login" matInput placeholder="login" autocomplete="off">
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" placeholder="password">
+      <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" placeholder="password"  autocomplete="off">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>

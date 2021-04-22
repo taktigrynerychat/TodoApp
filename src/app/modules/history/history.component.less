@@ -1,0 +1,54 @@
+@import "../../../assets/styles/vars";
+
+.history {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: @card-shadow;
+
+  &__item {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(100px, 1fr));
+    grid-template-rows: 1fr;
+    height: 50px;
+
+    &:first-child {
+      background: #f7faff;
+      text-transform: uppercase;
+      font-weight: 500;
+
+      & > .history-item__field:first-child {
+        color: unset;
+      }
+    }
+  }
+
+  &-item {
+    &__field {
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      position: relative;
+
+      &:first-child {
+        color: #e8e8e8;
+      }
+
+      & > span {
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-right: 10px;
+      }
+
+      &._color {
+        & > span {
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,24 @@
 <app-page-layout>
-  <div content>
-    <p *ngFor="let task of tasks | async">
-      {{task | json}}
-    </p>
+  <div content style="padding: 10px">
+    <div class="history _full-width">
+      <div class="history__item _full-width">
+        <div class="history-item__field"><span>id</span></div>
+        <div class="history-item__field"><span>name</span></div>
+        <div class="history-item__field"><span>description</span></div>
+        <div class="history-item__field"><span>end date</span></div>
+        <div class="history-item__field"><span>category</span></div>
+        <div class="history-item__field"><span>color</span></div>
+        <div class="history-item__field"><span>is done</span></div>
+      </div>
+      <div class="history__item _full-width" *ngFor="let task of tasks | async">
+        <div class="history-item__field"><span>{{ task.id}}</span></div>
+        <div class="history-item__field"><span>{{ task.name }}</span></div>
+        <div class="history-item__field" [matTooltip]="task.description"><span>{{ task.description }}</span></div>
+        <div class="history-item__field"><span>{{ task.end_date | date: 'dd.MM.yyyy' }}</span></div>
+        <div class="history-item__field"><span>{{ task.category }}</span></div>
+        <div class="history-item__field _color"><span [style.background]="task.color"></span></div>
+        <div class="history-item__field"><mat-checkbox (click)="$event.preventDefault()" [checked]="task.is_done"></mat-checkbox></div>
+      </div>
+    </div>
   </div>
 </app-page-layout>
